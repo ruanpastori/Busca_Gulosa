@@ -4,7 +4,7 @@
 
 Este projeto foi desenvolvido como atividade prática da disciplina de **Inteligência Artificial e Engenharia de Software** do curso de **Big Data Para Industria - FATEC SÃO CARLOS**.
 
-O objetivo é implementar o algoritmo de **Busca Gulosa (Greedy Best-First Search)** utilizando o clássico problema do **Mapa da Romênia**, apresentado no livro:
+O objetivo é implementar o algoritmo de **Busca Gulosa ** utilizando o clássico problema do **Mapa da Romênia**, apresentado no livro:
 
 > Russell, Stuart; Norvig, Peter. Inteligência Artificial: Uma Abordagem Moderna.
 
