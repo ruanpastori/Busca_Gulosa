@@ -1,1 +1,381 @@
-# Busca_Gulosa
+# Busca Gulosa - Mapa da Romênia
+
+## 📚 Sobre o Projeto
+
+Este projeto foi desenvolvido como atividade prática da disciplina de **Inteligência Artificial e Engenharia de Software** do curso de **Big Data Para Industria - FATEC SÃO CARLOS**.
+
+O objetivo é implementar o algoritmo de **Busca Gulosa (Greedy Best-First Search)** utilizando o clássico problema do **Mapa da Romênia**, apresentado no livro:
+
+> Russell, Stuart; Norvig, Peter. Inteligência Artificial: Uma Abordagem Moderna.
+
+O algoritmo utiliza uma função heurística para estimar a distância entre cada cidade e o objetivo (Bucharest), escolhendo sempre o nó aparentemente mais promissor.
+
+---
+
+# 🎯 Objetivos da Atividade
+
+* Compreender os conceitos de Busca Informada.
+* Implementar o algoritmo Busca Gulosa em Python.
+* Utilizar heurísticas para guiar a busca.
+* Comparar eficiência e qualidade da solução encontrada.
+* Aplicar conceitos de Engenharia de Software na documentação e modelagem do sistema.
+
+---
+
+# 🧠 Conceitos Utilizados
+
+## Busca Gulosa (Greedy Best-First Search)
+
+A Busca Gulosa seleciona sempre o nó com o menor valor da função heurística:
+
+h(n)
+
+Onde:
+
+* h(n) representa a estimativa do custo restante até o objetivo.
+* O algoritmo ignora o custo já percorrido.
+* Prioriza o caminho que parece mais próximo da solução.
+
+### Vantagens
+
+✅ Simples implementação
+
+✅ Baixo consumo de memória
+
+✅ Encontra soluções rapidamente
+
+### Desvantagens
+
+❌ Não garante o caminho ótimo
+
+❌ Pode encontrar soluções mais caras
+
+---
+
+# 📂 Estrutura do Projeto
+
+```text
+busca-gulosa-romenia/
+│
+├── README.md
+├── busca_gulosa.py
+├── imagens/
+│   ├── diagrama-casos-uso.png
+│   ├── diagrama-sequencia.png
+│   └── diagrama-estados.png
+│
+└── docs/
+```
+
+---
+
+# 🗺️ Mapa da Romênia
+
+O problema consiste em encontrar um caminho da cidade de Arad até Bucharest.
+
+Cada cidade é representada como um nó do grafo e cada estrada como uma aresta com custo associado.
+
+---
+
+# 📌 Estrutura do Grafo
+
+```python
+mapa_romenia = {
+    'Arad': [('Zerind', 75), ('Sibiu', 140), ('Timisoara', 118)],
+    ...
+}
+```
+
+### Explicação
+
+O grafo é representado por um dicionário Python.
+
+Exemplo:
+
+```python
+'Arad': [('Zerind', 75), ('Sibiu', 140)]
+```
+
+Significa:
+
+* Arad → Zerind = 75 km
+* Arad → Sibiu = 140 km
+
+---
+
+# 📍 Heurística
+
+```python
+heuristica_bucareste = {
+    'Arad': 366,
+    'Sibiu': 253,
+    'Fagaras': 176,
+    'Bucharest': 0
+}
+```
+
+### Explicação
+
+A heurística representa a distância em linha reta até Bucharest.
+
+Quanto menor o valor:
+
+* Mais próximo do objetivo.
+* Maior a prioridade na busca.
+
+---
+
+# ⚙️ Função Principal
+
+```python
+def busca_gulosa(inicio, objetivo, grafo, heuristica):
+```
+
+### Parâmetros
+
+| Parâmetro  | Descrição         |
+| ---------- | ----------------- |
+| inicio     | Cidade inicial    |
+| objetivo   | Cidade destino    |
+| grafo      | Estrutura do mapa |
+| heuristica | Valores h(n)      |
+
+---
+
+# 📌 Fronteira
+
+```python
+fronteira = [(heuristica[inicio], inicio, [inicio])]
+```
+
+### Explicação
+
+A fronteira armazena:
+
+```python
+(h(n), cidade, caminho)
+```
+
+Exemplo:
+
+```python
+(366, 'Arad', ['Arad'])
+```
+
+---
+
+# 📌 Visitados
+
+```python
+visitados = set()
+```
+
+### Explicação
+
+Evita que uma cidade seja expandida mais de uma vez.
+
+Isso impede:
+
+* Loops infinitos
+* Processamento desnecessário
+
+---
+
+# 📌 Ordenação da Fronteira
+
+```python
+fronteira.sort(key=lambda x: x[0])
+```
+
+### Explicação
+
+Ordena os elementos pelo valor da heurística.
+
+Exemplo:
+
+| Cidade    | h(n) |
+| --------- | ---- |
+| Sibiu     | 253  |
+| Timisoara | 329  |
+| Zerind    | 374  |
+
+Sibiu será escolhida primeiro.
+
+---
+
+# 📌 Remoção do Melhor Nó
+
+```python
+h_atual, cidade_atual, caminho = fronteira.pop(0)
+```
+
+### Explicação
+
+Remove o primeiro elemento da lista.
+
+Como a lista já está ordenada:
+
+* O nó removido sempre possui o menor h(n).
+
+---
+
+# 📌 Teste de Objetivo
+
+```python
+if cidade_atual == objetivo:
+    return caminho
+```
+
+### Explicação
+
+Verifica se o destino foi alcançado.
+
+Se sim:
+
+* Retorna o caminho encontrado.
+* Finaliza a execução.
+
+---
+
+# 📌 Expansão dos Vizinhos
+
+```python
+for vizinho, _ in grafo.get(cidade_atual, []):
+```
+
+### Explicação
+
+Percorre todas as cidades conectadas à cidade atual.
+
+Exemplo:
+
+```python
+Sibiu
+```
+
+Possui:
+
+* Arad
+* Oradea
+* Fagaras
+* Rimnicu Vilcea
+
+---
+
+# 📌 Inclusão na Fronteira
+
+```python
+fronteira.append(
+    (heuristica[vizinho], vizinho, novo_caminho)
+)
+```
+
+### Explicação
+
+Adiciona o vizinho à lista de cidades candidatas.
+
+A prioridade é definida pelo valor de h(n).
+
+---
+
+# 🚀 Resultado da Execução
+
+```text
+Expandindo: Arad (h = 366)
+Expandindo: Sibiu (h = 253)
+Expandindo: Fagaras (h = 176)
+Expandindo: Bucharest (h = 0)
+```
+
+Caminho encontrado:
+
+```text
+Arad -> Sibiu -> Fagaras -> Bucharest
+```
+
+---
+
+# 📊 Comparação dos Caminhos
+
+| Caminho                                             | Custo  |
+| --------------------------------------------------- | ------ |
+| Arad → Sibiu → Fagaras → Bucharest                  | 450 km |
+| Arad → Sibiu → Rimnicu Vilcea → Pitesti → Bucharest | 418 km |
+
+### Observação
+
+A Busca Gulosa encontrou rapidamente uma solução, porém não a melhor possível.
+
+Isso acontece porque ela considera apenas a heurística.
+
+---
+
+# 📐 Diagramas UML
+
+## Diagrama de Casos de Uso
+
+![Diagrama de Casos de Uso](imagens/diagrama-casos-uso.png)
+
+### Casos de Uso
+
+* Informar cidade de origem
+* Informar cidade destino
+* Executar busca
+* Visualizar caminho encontrado
+
+---
+
+## Diagrama de Sequência
+
+![Diagrama de Sequência](imagens/diagrama-sequencia.png)
+
+Fluxo:
+
+1. Usuário inicia busca
+2. Sistema cria fronteira
+3. Sistema ordena nós pela heurística
+4. Sistema expande nós
+5. Sistema encontra objetivo
+6. Sistema retorna caminho
+
+---
+
+## Diagrama de Estados
+
+![Diagrama de Estados](imagens/diagrama-estados.png)
+
+Estados:
+
+```text
+Início
+ ↓
+Criar Fronteira
+ ↓
+Expandir Nó
+ ↓
+Objetivo Encontrado?
+ ↓
+Sim → Finalizar
+Não → Expandir Próximo Nó
+```
+
+---
+
+# 🛠️ Tecnologias Utilizadas
+
+* Python 3
+* Algoritmos de Busca
+* Estruturas de Dados
+* UML
+* Git
+* GitHub
+
+---
+
+# 📖 Referências
+
+RUSSELL, Stuart; NORVIG, Peter.
+
+Artificial Intelligence: A Modern Approach.
+
+Pearson Education.
