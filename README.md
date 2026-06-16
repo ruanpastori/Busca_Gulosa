@@ -24,7 +24,7 @@ O algoritmo utiliza uma função heurística para estimar a distância entre cad
 
 # 🧠 Conceitos Utilizados
 
-## Busca Gulosa (Greedy Best-First Search)
+## Busca Gulosa 
 
 A Busca Gulosa seleciona sempre o nó com o menor valor da função heurística:
 
@@ -74,6 +74,8 @@ busca-gulosa-romenia/
 O problema consiste em encontrar um caminho da cidade de Arad até Bucharest.
 
 Cada cidade é representada como um nó do grafo e cada estrada como uma aresta com custo associado.
+
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/f5e81026-017a-4a3c-9e9c-7cf0f38e21cf" />
 
 ---
 
