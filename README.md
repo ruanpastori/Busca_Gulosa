@@ -313,8 +313,10 @@ Isso acontece porque ela considera apenas a heurística.
 ---
 ---
 
-💻 Código Fonte
-Implementação Completa da Busca Gulosa
+```
+# 💻 Código Fonte Completo
+
+```python
 # Grafo representando o mapa da Romênia
 mapa_romenia = {
     'Arad': [('Zerind', 75), ('Sibiu', 140), ('Timisoara', 118)],
