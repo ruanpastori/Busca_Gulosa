@@ -310,8 +310,7 @@ A Busca Gulosa encontrou rapidamente uma solução, porém não a melhor possív
 
 Isso acontece porque ela considera apenas a heurística.
 
----
----
+
 
 ```
 # 💻 Código Fonte Completo
