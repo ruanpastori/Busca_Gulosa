@@ -310,6 +310,9 @@ A Busca Gulosa encontrou rapidamente uma solução, porém não a melhor possív
 
 Isso acontece porque ela considera apenas a heurística.
 
+---
+---
+
 💻 Código Fonte
 Implementação Completa da Busca Gulosa
 # Grafo representando o mapa da Romênia
